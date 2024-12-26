@@ -1,6 +1,6 @@
-import { gql } from 'src/src/__generated__/gql';
+import { graphql } from 'src/src/__generated__';
 
-const GET_MENU = gql(`
+const GET_MENU = graphql(`
     query GetMenu {
         menu {
             id
@@ -10,5 +10,12 @@ const GET_MENU = gql(`
         }
     }
 `);
-const GET_PROFILE = gql(``);
+const GET_PROFILE = graphql(`
+    query GetProfile {
+        profile {
+            id
+            bio
+        }
+    }
+`);
 export { GET_MENU, GET_PROFILE };

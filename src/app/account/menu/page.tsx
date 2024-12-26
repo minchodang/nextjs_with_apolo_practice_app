@@ -3,7 +3,7 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
-import { GET_MENU, type Menu } from '../../queries/clientQueries';
+import { GET_MENU } from '../../queries/clientQueries';
 import MainMenu from '../../components/MainMenu';
 import withApollo from '../../utils/withApollo';
 
@@ -90,9 +90,9 @@ const Menu: React.FC = () => {
                         {data.menu.map(item => (
                             <ItemContainer key={item.id}>
                                 <ItemDescription>
-                                    <Content>{item?.name}</Content>
-                                    <Content>{item?.foodType}</Content>
-                                    <Content>{item?.description}</Content>
+                                    <Content>{item.name}</Content>
+                                    <Content>{item.foodType}</Content>
+                                    <Content>{item.description}</Content>
                                 </ItemDescription>
                             </ItemContainer>
                         ))}

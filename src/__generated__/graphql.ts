@@ -18,28 +18,34 @@ export type Scalars = {
 
 export type Menu = {
   __typename?: 'Menu';
-  description?: Maybe<Scalars['String']['output']>;
+  description: Scalars['String']['output'];
   foodType?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  id: Scalars['String']['output'];
+  name: Scalars['String']['output'];
 };
 
 export type Profile = {
   __typename?: 'Profile';
-  bio?: Maybe<Scalars['String']['output']>;
-  id?: Maybe<Scalars['String']['output']>;
+  bio: Scalars['String']['output'];
+  id: Scalars['String']['output'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  menu?: Maybe<Array<Maybe<Menu>>>;
-  profile?: Maybe<Array<Maybe<Profile>>>;
+  menu?: Maybe<Array<Menu>>;
+  profile?: Maybe<Array<Profile>>;
 };
 
 export type GetMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMenuQuery = { __typename?: 'Query', menu?: Array<{ __typename?: 'Menu', id?: string | null, name?: string | null, foodType?: string | null, description?: string | null } | null> | null };
+export type GetMenuQuery = { __typename?: 'Query', menu?: Array<{ __typename?: 'Menu', id: string, name: string, foodType?: string | null, description: string }> | null };
+
+export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetProfileQuery = { __typename?: 'Query', profile?: Array<{ __typename?: 'Profile', id: string, bio: string }> | null };
 
 
 export const GetMenuDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMenu"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menu"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"foodType"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetMenuQuery, GetMenuQueryVariables>;
+export const GetProfileDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetProfile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"profile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}}]}}]}}]} as unknown as DocumentNode<GetProfileQuery, GetProfileQueryVariables>;
