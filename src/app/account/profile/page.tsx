@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
-import { GET_PROFILE } from '@/app/queries/clientQueries';
 import withApollo from '../../utils/withApollo';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
 import MainMenu from '../../components/MainMenu';
+import { GET_PROFILE, Profile } from '../../queries/clientQueries';
 
 const theme = {
     colors: {
@@ -74,7 +74,7 @@ const ClientProtectPage: React.FC = () => {
                     <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
                     {!loading && !error && data.profile && (
                         <ContentContainer>
-                            {data.profile.map((account: any) => (
+                            {data.profile.map((account: Profile) => (
                                 <ContentContainer key={account.id}>
                                     <Content>{account.bio}</Content>
                                 </ContentContainer>
