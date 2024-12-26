@@ -1,11 +1,11 @@
-import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
-import withApollo from '../../utils/withApollo';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
 import MainMenu from '../../components/MainMenu';
-import { GET_PROFILE, Profile } from '../../queries/clientQueries';
+import { GET_PROFILE } from '../../queries/clientQueries';
+import withApollo from '../../utils/withApollo';
 
 const theme = {
     colors: {
@@ -75,8 +75,8 @@ const ClientProtectPage: React.FC = () => {
                     {!loading && !error && data?.profile && (
                         <ContentContainer>
                             {data.profile.map(account => (
-                                <ContentContainer key={account?.id}>
-                                    <Content>{account?.bio}</Content>
+                                <ContentContainer key={account.id}>
+                                    <Content>{account.bio}</Content>
                                 </ContentContainer>
                             ))}
                         </ContentContainer>

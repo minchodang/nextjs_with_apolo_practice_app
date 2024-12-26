@@ -7,18 +7,18 @@ import allowCors from '../utils/cors';
 
 const typeDefs = gql`
     type Menu {
-        id: String
+        id: String!
         foodType: String
-        name: String
-        description: String
+        name: String!
+        description: String!
     }
     type Profile {
-        id: String
-        bio: String
+        id: String!
+        bio: String!
     }
     type Query {
-        menu: [Menu]
-        profile: [Profile]
+        menu: [Menu!]
+        profile: [Profile!]
     }
 `;
 
