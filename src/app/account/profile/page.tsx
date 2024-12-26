@@ -72,11 +72,11 @@ const ClientProtectPage: React.FC = () => {
                     <PageTitle>Profile</PageTitle>
                     <LoginStatus>Signed in as {userEmail}</LoginStatus>
                     <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
-                    {!loading && !error && data.profile && (
+                    {!loading && !error && data?.profile && (
                         <ContentContainer>
-                            {data.profile.map((account: Profile) => (
-                                <ContentContainer key={account.id}>
-                                    <Content>{account.bio}</Content>
+                            {data.profile.map(account => (
+                                <ContentContainer key={account?.id}>
+                                    <Content>{account?.bio}</Content>
                                 </ContentContainer>
                             ))}
                         </ContentContainer>

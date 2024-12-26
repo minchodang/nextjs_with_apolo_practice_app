@@ -1,19 +1,7 @@
-import { gql } from '@apollo/client';
+import { gql } from 'src/src/__generated__/gql';
 
-export interface Menu {
-    id: string;
-    name: string;
-    foodType: string;
-    description: string;
-}
-
-export interface Profile {
-    id: string;
-    bio: string;
-}
-
-const GET_MENU = gql`
-    query {
+const GET_MENU = gql(`
+    query GetMenu {
         menu {
             id
             name
@@ -21,15 +9,6 @@ const GET_MENU = gql`
             description
         }
     }
-`;
-
-const GET_PROFILE = gql`
-    query {
-        profile {
-            id
-            bio
-        }
-    }
-`;
-
+`);
+const GET_PROFILE = gql(``);
 export { GET_MENU, GET_PROFILE };
