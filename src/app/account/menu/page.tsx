@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { useQuery } from '@apollo/client';
-import { GET_MENU } from '@/app/queries/clientQueries';
-import withApollo from '../../utils/withApollo';
 import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
+import { GET_MENU, type Menu } from '../../queries/clientQueries';
 import MainMenu from '../../components/MainMenu';
+import withApollo from '../../utils/withApollo';
 
 const theme = {
     colors: {
@@ -87,7 +87,7 @@ const Menu: React.FC = () => {
                 )}
                 {!loading && !error && data.menu && (
                     <ContentContainer>
-                        {data.menu.map((item: any) => (
+                        {data.menu.map(item => (
                             <ItemContainer key={item.id}>
                                 <ItemDescription>
                                     <Content>{item.name}</Content>
