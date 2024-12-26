@@ -85,14 +85,14 @@ const Menu: React.FC = () => {
                 ) : (
                     <SignInOutButton onClick={() => signIn()}>Sign in</SignInOutButton>
                 )}
-                {!loading && !error && data.menu && (
+                {!loading && !error && data?.menu && (
                     <ContentContainer>
                         {data.menu.map(item => (
                             <ItemContainer key={item.id}>
                                 <ItemDescription>
-                                    <Content>{item.name}</Content>
-                                    <Content>{item.foodType}</Content>
-                                    <Content>{item.description}</Content>
+                                    <Content>{item?.name}</Content>
+                                    <Content>{item?.foodType}</Content>
+                                    <Content>{item?.description}</Content>
                                 </ItemDescription>
                             </ItemContainer>
                         ))}
