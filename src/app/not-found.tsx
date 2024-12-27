@@ -2,12 +2,14 @@
 
 import React from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import MainMenu from '../components/MainMenu';
-import GlobalStyle from '../components/GlobalStyles';
+import MainMenu from './components/MainMenu';
+import GlobalStyle from './components/GlobalStyles';
 
 const theme = {
     colors: {
         primary: 'rgb(15, 23, 42)',
+        secondary: 'rgb(4, 120, 87)',
+        accent: 'rgb(6, 78, 59)',
     },
 };
 
@@ -24,18 +26,17 @@ const PageTitle = styled.h1`
 
 const PageIntro = styled.p`
     color: #ffffff;
-    margin-top: 2rem;
     font-size: 1.4rem;
 `;
 
-export default function Nutrition() {
+export default function NotFound() {
     return (
         <ThemeProvider theme={theme}>
             <GlobalStyle />
             <MainMenu />
             <MainContainer>
-                <PageTitle>Nutrition</PageTitle>
-                <PageIntro>Nutrition is good for health and diet!</PageIntro>
+                <PageTitle>Page Not Found</PageTitle>
+                <PageIntro>Could not find requested page :(</PageIntro>
             </MainContainer>
         </ThemeProvider>
     );
