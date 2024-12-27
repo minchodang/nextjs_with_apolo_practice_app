@@ -1,4 +1,4 @@
-import { graphql } from 'src/src/__generated__';
+import { graphql } from 'src/src/__generated__/gql';
 
 const GET_MENU = graphql(`
     query GetMenu {
