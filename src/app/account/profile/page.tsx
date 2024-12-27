@@ -1,3 +1,5 @@
+'use client';
+
 import { useQuery } from '@apollo/client';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import React from 'react';
@@ -5,7 +7,6 @@ import styled, { ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
 import MainMenu from '../../components/MainMenu';
 import { GET_PROFILE } from '../../queries/clientQueries';
-import withApollo from '../../utils/withApollo';
 
 const theme = {
     colors: {
@@ -65,38 +66,42 @@ const ClientProtectPage: React.FC = () => {
 
     if (status === 'authenticated') {
         return (
+            <>
+                <ThemeProvider theme={theme}>
+                    <GlobalStyle />
+                    <MainMenu />
+                    <MainContainer>
+                        <PageTitle>Profile</PageTitle>
+                        <LoginStatus>Signed in as {userEmail}</LoginStatus>
+                        <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
+                        {!loading && !error && data?.profile && (
+                            <ContentContainer>
+                                {data.profile.map(account => (
+                                    <ContentContainer key={account.id}>
+                                        <Content>{account.bio}</Content>
+                                    </ContentContainer>
+                                ))}
+                            </ContentContainer>
+                        )}
+                    </MainContainer>
+                </ThemeProvider>
+            </>
+        );
+    }
+
+    return (
+        <>
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
                 <MainMenu />
                 <MainContainer>
                     <PageTitle>Profile</PageTitle>
-                    <LoginStatus>Signed in as {userEmail}</LoginStatus>
-                    <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
-                    {!loading && !error && data?.profile && (
-                        <ContentContainer>
-                            {data.profile.map(account => (
-                                <ContentContainer key={account.id}>
-                                    <Content>{account.bio}</Content>
-                                </ContentContainer>
-                            ))}
-                        </ContentContainer>
-                    )}
+                    <LoginStatus>Not signed in. Sign in to view your profile.</LoginStatus>
+                    <SignInOutButton onClick={() => signIn()}>Sign in</SignInOutButton>
                 </MainContainer>
             </ThemeProvider>
-        );
-    }
-
-    return (
-        <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <MainMenu />
-            <MainContainer>
-                <PageTitle>Profile</PageTitle>
-                <LoginStatus>Not signed in. Sign in to view your profile.</LoginStatus>
-                <SignInOutButton onClick={() => signIn()}>Sign in</SignInOutButton>
-            </MainContainer>
-        </ThemeProvider>
+        </>
     );
 };
 
-export default withApollo(ClientProtectPage);
+export default ClientProtectPage;

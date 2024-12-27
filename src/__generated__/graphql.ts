@@ -18,16 +18,16 @@ export type Scalars = {
 
 export type Menu = {
   __typename?: 'Menu';
-  description: Scalars['String']['output'];
+  description?: Maybe<Scalars['String']['output']>;
   foodType?: Maybe<Scalars['String']['output']>;
-  id: Scalars['String']['output'];
-  name: Scalars['String']['output'];
+  id?: Maybe<Scalars['String']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
 };
 
 export type Profile = {
   __typename?: 'Profile';
-  bio: Scalars['String']['output'];
-  id: Scalars['String']['output'];
+  bio?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
 };
 
 export type Query = {
@@ -39,12 +39,12 @@ export type Query = {
 export type GetMenuQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetMenuQuery = { __typename?: 'Query', menu?: Array<{ __typename?: 'Menu', id: string, name: string, foodType?: string | null, description: string }> | null };
+export type GetMenuQuery = { __typename?: 'Query', menu?: Array<{ __typename?: 'Menu', id?: string | null, name?: string | null, foodType?: string | null, description?: string | null }> | null };
 
 export type GetProfileQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetProfileQuery = { __typename?: 'Query', profile?: Array<{ __typename?: 'Profile', id: string, bio: string }> | null };
+export type GetProfileQuery = { __typename?: 'Query', profile?: Array<{ __typename?: 'Profile', id?: string | null, bio?: string | null }> | null };
 
 
 export const GetMenuDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetMenu"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"menu"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"foodType"}},{"kind":"Field","name":{"kind":"Name","value":"description"}}]}}]}}]} as unknown as DocumentNode<GetMenuQuery, GetMenuQueryVariables>;

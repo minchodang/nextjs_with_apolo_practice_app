@@ -1,15 +1,14 @@
-import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+'use client';
 import { useQuery } from '@apollo/client';
-import styled, { ThemeProvider } from 'styled-components';
+import { signIn, signOut, useSession } from 'next-auth/react';
+import { styled, ThemeProvider } from 'styled-components';
 import GlobalStyle from '../../components/GlobalStyles';
-import { GET_MENU } from '../../queries/clientQueries';
 import MainMenu from '../../components/MainMenu';
-import withApollo from '../../utils/withApollo';
+import { GET_MENU } from '../../queries/clientQueries';
 
 const theme = {
     colors: {
-        primary: 'rgb(15, 23, 42)',
+        primary: 'rgb(15 23 42)',
     },
 };
 
@@ -32,7 +31,7 @@ const SignInOutButton = styled.button`
     color: #ffffff;
     padding: 0.5rem;
     cursor: pointer;
-    margin: 2rem 0;
+    margin: 2rem 0 2rem 0;
 `;
 
 const ContentContainer = styled.div`
@@ -48,7 +47,7 @@ const Content = styled.p`
 const ItemContainer = styled.div`
     display: flex;
     flex-flow: row nowrap;
-    margin: 2rem 0;
+    margin: 2rem 0 2rem 0;
     border: 0.1rem solid black;
 `;
 
@@ -56,51 +55,62 @@ const ItemDescription = styled.div`
     margin-left: 1rem;
 `;
 
-const Menu: React.FC = () => {
-    const { data: session, status } = useSession();
+const Menu = () => {
     const { loading, error, data } = useQuery(GET_MENU);
+    const { data: session, status } = useSession();
     const userEmail = session?.user?.email;
+
+    if (loading) return <Content>Loading...</Content>;
+    if (error) return <Content>Something went wrong</Content>;
 
     if (status === 'loading') {
         return <Content>Hang on there...</Content>;
     }
 
-    if (loading) {
-        return <Content>Loading...</Content>;
-    }
-
-    if (error) {
-        return <Content>Something went wrong</Content>;
+    if (status === 'authenticated') {
+        return (
+            <>
+                <ThemeProvider theme={theme}>
+                    <GlobalStyle />
+                    <MainMenu />
+                    <MainContainer>
+                        <PageTitle>Menu</PageTitle>
+                        <LoginStatus>Signed in as {userEmail}</LoginStatus>
+                        <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
+                        {!loading && !error && (
+                            <ContentContainer>
+                                {data?.menu?.map(items => (
+                                    <ContentContainer key={items.id}>
+                                        <ItemContainer>
+                                            <ItemDescription>
+                                                <Content>{items.name}</Content>
+                                                <Content>{items.foodType}</Content>
+                                                <Content>{items.description}</Content>
+                                            </ItemDescription>
+                                        </ItemContainer>
+                                    </ContentContainer>
+                                ))}
+                            </ContentContainer>
+                        )}
+                    </MainContainer>
+                </ThemeProvider>
+            </>
+        );
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <GlobalStyle />
-            <MainMenu />
-            <MainContainer>
-                <PageTitle>Menu</PageTitle>
-                <LoginStatus>{userEmail ? `Signed in as ${userEmail}` : 'Not Signed in'}</LoginStatus>
-                {userEmail ? (
-                    <SignInOutButton onClick={() => signOut()}>Sign out</SignInOutButton>
-                ) : (
-                    <SignInOutButton onClick={() => signIn()}>Sign in</SignInOutButton>
-                )}
-                {!loading && !error && data?.menu && (
-                    <ContentContainer>
-                        {data.menu.map(item => (
-                            <ItemContainer key={item.id}>
-                                <ItemDescription>
-                                    <Content>{item.name}</Content>
-                                    <Content>{item.foodType}</Content>
-                                    <Content>{item.description}</Content>
-                                </ItemDescription>
-                            </ItemContainer>
-                        ))}
-                    </ContentContainer>
-                )}
-            </MainContainer>
-        </ThemeProvider>
+        <>
+            <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                <MainMenu />
+                <MainContainer>
+                    <PageTitle>Menu</PageTitle>
+                    <SignInOutButton onClick={() => signIn('')}>Sign in</SignInOutButton>
+                    <LoginStatus>Not signed in. Sign in to view the menu.</LoginStatus>
+                </MainContainer>
+            </ThemeProvider>
+        </>
     );
 };
 
-export default withApollo(Menu);
+export default Menu;
